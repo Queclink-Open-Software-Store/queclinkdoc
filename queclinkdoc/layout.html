@@ -1,0 +1,93 @@
+{#
+    queclink/layout.html
+    ~~~~~~~~~~~~~~~~~~~~
+
+    Sphinx layout template for the queclink theme.
+#}
+
+{%- extends "basic/layout.html" %}
+
+{%- block scripts %}
+    {{ super() }}
+    <script src="{{ pathto('_static/queclinkdoc_head.js', 1) }}"></script>
+{%- endblock %}
+
+{%- set fulltoc = toctree(includehidden=False, collapse=False, maxdepth=theme_globaltoc_maxdepth) %}
+
+{%- set has_version = version %}
+
+{% block header %}
+<div class="pageheader">
+  <div class="pageheader-search">
+    <p id="pageheader-Contents"><a href="{{ pathto('index') }}">Home</a></p>
+
+    <p class="pageheader-separator">|</p>
+
+    {%- if prev %}
+    <p id="pageheader-Previous"><a href="{{ prev.link|e }}">Previous</a></p>
+    {%- else %}
+    <p id="pageheader-Previous">Previous</p>
+    {%- endif %}
+
+    <p class="pageheader-separator">|</p>
+
+    {%- if next %}
+    <p id="pageheader-Next"><a href="{{ next.link|e }}">Next</a></p>
+    {%- else %}
+    <p id="pageheader-Next">Next</p>
+    {%- endif %}
+
+    {%- if pagename != "search" and builder != "singlehtml" %}
+    <div id="searchbox" style="display: none" role="search">
+      <div class="searchformwrapper" id="searchlabel">
+        <form class="search" action="{{ pathto('search') }}" method="get">
+          <input type="text" name="q" aria-labelledby="searchlabel" />
+          <input type="image" src="{{ pathto('_static/searchimg.png', 1) }}" width="18px" height="18px" />
+        </form>
+      </div>
+    </div>
+    <script>$('#searchbox').show(0);</script>
+    {%- endif %}
+  </div>
+
+  <div class="pageheader-title">
+    {%- if has_version %}
+    <p id="pageheader-name" >{{ project }}</p>
+    <p id="pageheader-version" >{{ version }}</p>
+    {%- else %}
+    <p id="pageheader-name">{{ project }}</p>
+    {%- endif %}
+  </div>
+
+  <hr style="margin:0; border:0; border-top:8px solid white;" />
+
+  <div class="pageheader-toc">
+    {{ fulltoc }}
+  </div>
+
+  <script src="{{ pathto('_static/queclinkdoc_toc.js', 1) }}"></script>
+  <script>
+    fitTOCstyle_l1();
+    fitTOCstyle_current();
+  </script>
+</div>
+{% endblock %}
+
+{% block relbar2 %}{% endblock %}
+
+{%- block footer %}
+<div class="footer">
+  {# Thanks Alabaster (https://github.com/bitprophet/alabaster) very much. #}
+  {% if show_copyright %}&copy;{{ copyright }}.{% endif %}
+  {% if show_copyright %}|{% endif %}
+  Powered by <a href="http://sphinx-doc.org/">Sphinx {{ sphinx_version }}</a>
+  &amp; <a href="https://github.com/Queclink-Open-Software-Store/queclinkdoc">queclinkdoc {{ queclinkdoc_version }}</a>
+  {%- if show_source and has_source and sourcename %}
+  {% if show_copyright %}|{% endif %}
+  <a href="{{ pathto('_sources/' + sourcename, true)|e }}"
+      rel="nofollow">{{ _('Page source') }}</a>
+  {%- endif %}
+</div>
+<script src="{{ pathto('_static/queclinkdoc_last.js', 1) }}"></script>
+<script>fitTOCstyle_l2_l3();</script>
+{%- endblock %}

@@ -1,0 +1,668 @@
+/*
+ * queclink.css_t
+ * ~~~~~~~~~~~~~~
+ *
+ * Sphinx stylesheet -- queclink theme.  Originally created by
+ * Queclink Wireless Solutions Co., Ltd.
+ *
+ * :copyright: Copyright 2007-2021 by the Sphinx team, see AUTHORS.
+ * :license: BSD, see LICENSE for details.
+ *
+ */
+
+{%- set _window_width = "960px" %}
+
+{%- set local_c_gray = "#F3F1EA" %}
+{%- set local_c_blue = "#2A579A" %}
+{%- set local_c_green = "#008080" %}
+{%- set local_c_black = "#222222" %}
+{%- set local_c_orange = "#FF6300" %}
+{%- set local_c_red = "#F10000" %}
+
+{%- set border_c_gray = "#888" %}
+{%- set border_c_gray2 = "#CCC" %}
+
+{%- set highlight_color = "#FBE54E" %}
+
+{%- set local_bgc_code = "#F8F8F8" %}
+
+{%- set local_title_font = "Gill Sans MT" %}
+{%- set local_basic_font = "Arial, sans-serif, Verdana, Consolas, Microsoft YaHei" %}
+{%- set local_code_font = "Consolas, Menlo, DejaVu Sans Mono, Bitstream Vera Sans Mono, monospace" %}
+
+@import url("basic.css");
+
+html {
+    margin-left: calc(100vw - 100%);
+    scroll-behavior: smooth;
+}
+
+body {
+    width: {{ _window_width }};
+    font-family: {{ local_basic_font }};
+    background-color: {{ local_c_gray }};
+    color: {{ local_c_black }};
+    font-size: 16px;
+    font-weight: normal;
+    text-align: left;
+    margin: 0 auto;
+    padding: 0;
+}
+
+/* -- header layout ----------------------------------------------------------- */
+
+.pageheader {
+    text-align: center;
+    font-family: {{ local_title_font }}, {{ local_basic_font }};
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+.pageheader ul {
+    list-style: none;
+}
+
+.pageheader a {
+    text-decoration: none;
+}
+
+.pageheader-search,
+.pageheader-search p {
+    background-color: {{ local_c_gray }};
+    color: {{ local_c_black }};
+    line-height: 24px;
+    height: 24px;
+    padding: 2px;
+    margin: 0;
+    border: 0;
+}
+
+.pageheader-search p {
+    padding: 0 2px;
+}
+
+.pageheader-search a {
+    color: {{ local_c_black }};
+}
+
+.pageheader-search a:hover {
+    text-decoration: underline;
+}
+
+.pageheader-search a:active {
+    text-decoration: underline;
+}
+
+.pageheader-separator {
+    margin: 0px 4px;
+}
+
+.pageheader-search #searchbox {
+    margin: 0px 4px 0px 10px;
+    padding: 0;
+}
+
+.pageheader-search #searchbox form {
+    height: 24px;
+}
+
+.pageheader-search #searchbox input[type="text"] {
+    box-sizing: border-box;
+    border-radius: 3px;
+    border: 1px solid {{ local_c_black }};
+    background-color: {{ local_c_gray }};
+    color: {{ local_c_black }};
+    font-size: 14px;
+    padding: 1px 4px;
+    margin: 2px 0px;
+}
+
+.pageheader-search #searchbox input[type="image"] {
+    box-sizing: border-box;
+    margin: 3px 0px 3px 4px;
+}
+
+.pageheader-search #searchbox .highlight-link {
+    background-color: transparent;
+    text-align: left;
+    position: relative;
+    z-index: 3;
+}
+
+.pageheader-search #searchbox .highlight-link a {
+    color: {{ highlight_color }};
+    font-size: 0.9em;
+}
+
+.pageheader-search #searchbox .highlight-link a:hover {
+    text-decoration: underline;
+}
+
+.pageheader-search {
+    float: right;
+}
+
+ul.search li a {
+    font-weight: normal !important;
+}
+
+ul.search li a b,
+ul.search li a strong {
+    font-weight: inherit !important;
+}
+
+ul.search li p.context {
+    font-size: 0.9em;
+    margin-left: 0;
+}
+
+#pageheader-Contents, #pageheader-Previous, #pageheader-Next, .pageheader-separator, .pageheader-search #searchbox, .pageheader-search #searchbox input {
+    float: left;
+}
+
+.pageheader-title {
+    clear: both;
+    font-weight: 520;
+    background-color: {{ local_c_green }};
+    color: white;
+    height: 44px;
+    padding: 2px;
+    margin: 0;
+    border: 0;
+}
+
+#pageheader-name {
+    margin: 0;
+    font-size: 24px;
+    line-height: 44px;
+    position: relative;
+    z-index: 1;
+    top: 0;
+}
+
+#pageheader-version {
+    margin: 0;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: right;
+    padding-right: 4px;
+    position: relative;
+    z-index: 2;
+    top: -19px;
+}
+
+.pageheader-toc {
+    border: 0;
+    padding: 0;
+    margin: 0 auto;
+    font-weight: normal;
+    background-color: {{ local_c_green }};
+    color: white;
+}
+
+.pageheader-toc b,
+.pageheader-toc strong {
+    font-weight: inherit !important;
+}
+
+.pageheader-toc .caption {
+    display: none;
+}
+
+.pageheader-toc ul {
+    height: 28px;
+    list-style: none;
+    width: {{ _window_width }};
+    margin: 0 auto;
+    padding: 0;
+}
+
+.pageheader-toc ul li {
+    float: left;
+    line-height: 28px;
+    border-left: 1px solid {{ local_c_green }};
+    border-right: 1px solid {{ local_c_green }};
+}
+
+.pageheader-toc a {
+    background-color: {{ local_c_green }};
+    color: white;
+    height: 28px;
+    display: block;
+    overflow: hidden;
+    text-align: left;
+    padding: 0;
+}
+
+.pageheader-toc .toctree-l1 a {
+    text-align: center;
+}
+
+.pageheader-toc .toctree-l1 > a {
+    color: {{ local_c_green }};
+}
+
+.pageheader-toc .toctree-l2 a {
+    text-align: left;
+    padding: 0 3px 0 6px;
+}
+
+.pageheader-toc .toctree-l1 ul {
+    position: absolute;
+    margin-left: -1px;
+    display: none;
+    width: 100px;
+}
+
+.pageheader-toc .toctree-l1 ul li {
+    border-left: 1px solid white;
+    border-right-width: 0px;
+    border-top: 1px solid white;
+    border-bottom-width: 0;
+}
+
+.pageheader-toc .toctree-l2 ul {
+    position: absolute;
+    margin-top: -29px;
+    margin-left: 0px;
+    display: none;
+    width: 100%;
+    left: 100%;
+}
+
+.pageheader-toc .toctree-l1:hover ul {
+    display: block;
+}
+
+.pageheader-toc .toctree-l1:hover ul ul {
+    display: none;
+}
+
+.pageheader-toc .toctree-l1:hover ul ul {
+    display: none;
+}
+
+.pageheader-toc .toctree-l1:hover .toctree-l2:hover ul {
+    display: block;
+}
+
+.pageheader-toc .toctree-l1 a:hover {
+    background-color: white;
+    color: {{ local_c_black }};
+}
+
+.pageheader-toc .toctree-l2 a:hover,
+.pageheader-toc .toctree-l3 a:hover {
+    border-left: 3px solid {{ local_c_green }};
+    padding-left: 3px;
+}
+
+.pageheader-toc .toctree-l4 {
+    display: none;
+}
+
+.pageheader-toc .toctree-l5 {
+    display: none;
+}
+
+.body .toctree-wrapper.compound {
+    clear: both;
+    margin-top: 16px;
+}
+
+.body .toctree-wrapper.compound .caption {
+    font-family: {{ local_title_font }}, {{ local_basic_font }};
+    font-size: 1.25em;
+    font-weight: 300;
+    padding-top: 65px;  /* 28 + 29 + 8 */
+    margin-top: -49px;  /* 28 + 29 - 8 */
+}
+
+.body .toctree-wrapper.compound b,
+.body .toctree-wrapper.compound strong {
+    font-weight: inherit !important;
+}
+
+/* -- related layout ------------------------------------------------------------ */
+
+.related {
+    width: {{ _window_width }};
+}
+
+.related h3 {
+    display: none;
+}
+
+.related ul .right {
+    display: none;
+}
+
+.related ul .nav-item.nav-item-0 {
+    display: none;
+}
+
+.related b,
+.related strong {
+    font-weight: inherit !important;
+}
+
+.related ul {
+    list-style: none;
+}
+
+.related ul {
+    padding-left: 4px;
+    border-bottom: 1px solid {{ local_c_gray }};
+    background-color: white;
+    list-style: none;
+    height: 28px;
+}
+
+.related ul li {
+    margin: 0 4px;
+    padding: 0;
+    line-height: 28px;
+    font-size: 14px;
+    float: left;
+}
+
+.related a {
+    font-family: {{ local_title_font }}, {{ local_basic_font }};
+    color: {{ local_c_black }};
+    text-decoration: none;
+}
+
+.related a:hover {
+    text-decoration: underline;
+}
+
+/* -- document layout ----------------------------------------------------------- */
+
+div.document {
+    background-color: white;
+    text-align: left;
+}
+
+div.bodywrapper {
+    margin: 0;
+    border: 0;
+}
+
+div.body {
+    margin: 0;
+    padding: 4px 20px 8px 20px;
+    color: {{ local_c_black }};
+    max-width: 920px;
+    clear: both;
+}
+
+div.footer {
+    clear: both;
+    font-family: {{ local_basic_font }};
+    background-color: {{ local_c_gray }};
+    color: {{ local_c_black }};
+    font-size: 14px;
+    text-align: right;
+    line-height: 24px;
+    height: 24px;
+    padding: 2px 0;
+    margin: 0 4px 0 0;
+    border: 0;
+}
+
+div.footer a {
+    color: {{ local_c_black }};
+}
+
+/* -- body styles ----------------------------------------------------------- */
+
+div.body p, div.body dd, div.body li {
+    line-height: 1.5em;
+    letter-spacing: 0.01em;
+    word-spacing: 0.05em;
+}
+
+div.body p a {
+    letter-spacing: -0.01em;
+    word-spacing: -0.025em;
+}
+
+div.body b,
+div.body strong {
+    font-weight: 600;
+}
+
+div.document p {
+    margin: 0.8em 0 0.2em 0;
+}
+
+div.document a {
+    color: #005DB7;
+    text-decoration: none;
+    word-break: break-all;
+}
+
+div.document a:hover {
+    text-decoration: underline;
+}
+
+div.document ul,
+div.document ol {
+    margin: 6px 0 6px 30px;
+    padding: 0;
+}
+
+div.document ul,
+div.document ul ul ul,
+div.document ul ul ul ul ul {
+    list-style: circle outside;
+}
+
+div.document ul ul,
+div.document ul ul ul ul,
+div.document ul ul ul ul ul ul {
+    list-style: disc outside;
+}
+
+div.document h1, div.document h2, div.document h3,
+div.document h4, div.document h5, div.document h6 {
+    font-family: {{ local_title_font }}, {{ local_basic_font }};
+}
+
+div.document h1 b, div.document h2 b, div.document h3 b,
+div.document h4 b, div.document h5 b, div.document h6 b,
+div.document h1 strong, div.document h2 strong, div.document h3 strong,
+div.document h4 strong, div.document h5 strong, div.document h6 strong {
+    font-weight: inherit !important;
+}
+
+div.document h1 {
+    margin: 16px 0 8px 0;
+    font-size: 2.0em;
+    font-weight: 300;
+}
+
+div.document h2, div.document h3, div.document h4 {
+    margin: -49px 0 8px 0;  /* 28 + 29 - 8 */
+    padding: 65px 0 0 0;    /* 28 + 29 + 8 */
+}
+
+div.document h2 {
+    font-size: 1.5em;
+    font-weight: 300;
+}
+
+div.document h3 {
+    font-size: 1.25em;
+    font-weight: 300;
+}
+
+div.document h4 {
+    font-size: 1.1em;
+    font-weight: 300;
+}
+
+div.body h1 a, div.body h2 a, div.body h3 a, div.body h4 a, div.body h5 a, div.body h6 a {
+    text-decoration: none;
+}
+
+a.headerlink {
+    display: none;
+}
+
+cite, code, tt {
+    font-family: {{ local_code_font }};
+    font-size: 0.95em;
+    font-weight: 600;
+    font-style: italic;
+    letter-spacing: -0.01em;
+    word-spacing: -0.025em;
+}
+
+code, tt {
+    padding-left: 2px;
+    padding-right: 2px;
+    border-radius: 1px;
+    border: 1px solid #ddd;
+    background-color: {{ local_bgc_code }};
+}
+
+tt.descname, tt.descclassname, tt.xref {
+    border: 0;
+}
+
+div.document a tt {
+    border: 0;
+}
+
+div.document a tt:hover {
+    color: {{ local_c_blue }};
+}
+
+table.deprecated code.literal {
+    word-break: break-all;
+}
+
+div.document hr {
+    border: 0;
+    border-top: 1px solid {{ border_c_gray }};
+    margin: 1em 0;
+}
+
+div.document pre {
+    font-family: {{ local_code_font }};
+    font-size: 14px;
+    line-height: 1.4em;
+    letter-spacing: 0.01em;
+    padding: 8px 16px;
+    border-radius: 1px;
+    border: 1px solid {{ border_c_gray2 }};
+    background-color: {{ local_bgc_code }};
+}
+
+div.document pre a {
+    color: inherit;
+    text-decoration: underline;
+    letter-spacing: -0.01em;
+    word-spacing: -0.025em;
+}
+
+td.linenos pre {
+    padding: 0.5em 0;
+}
+
+.viewcode-back {
+    font-family: {{ local_code_font }};
+}
+
+div.viewcode-block:target {
+    background-color: {{ local_c_orange }};
+}
+
+dt:target, span.highlighted {
+    background-color: {{ highlight_color }};
+}
+
+/* -- Admonitions styles ----------------------------------------------------------- */
+
+div.admonition {
+    font-size: 0.95em;
+    line-height: 1em;
+    margin: 16px 0px;
+    padding: 8px 16px;
+    background-color: {{ local_bgc_code }};
+    border: 1px solid {{ border_c_gray2 }};
+    border-radius: 1px;
+}
+
+div.admonition tt.xref, div.admonition code.xref, div.admonition a tt {
+    border-bottom: 1px solid {{ local_c_blue }};
+}
+
+div.admonition > p {
+    margin: 8px 0;
+    padding: 0;
+}
+
+div.admonition > p.admonition-title {
+    margin-top: 0;
+    font-size: 22px;
+    line-height: 22px;
+    color: {{ local_c_blue }};
+    text-shadow: 1px 1px 1px #ff9a00;
+    font-family: {{ local_title_font }}, {{ local_basic_font }};
+}
+
+p.admonition-title:after {
+    content: ":";
+}
+
+div.admonition p.last {
+    margin-bottom: 0;
+}
+
+div.danger, div.error {
+    background-color: #FCC;
+    border: 1px solid #FAA;
+}
+
+div.warning,
+div.caution,
+div.attention {
+    border: 1px solid #F88;
+}
+
+p.admonition-title {
+    display: inline;
+}
+
+/* -- table layout ------------------------------------------------------------- */
+
+table.docutils {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    border: 1px solid {{ border_c_gray }};
+    border-collapse: collapse;
+}
+
+table.docutils td, table.docutils th {
+    border: 1px solid {{ border_c_gray }};
+    padding: 0.25em 0.5em;
+}
+
+th > :first-child,
+td > :first-child {
+    margin-top: 0px !important;
+}
+
+th > :last-child,
+td > :last-child {
+    margin-bottom: 0px !important;
+}
+
+/* -- figure layout ------------------------------------------------------------ */
+
+div.figure, figure {
+    padding: 0.5em 0;
+}

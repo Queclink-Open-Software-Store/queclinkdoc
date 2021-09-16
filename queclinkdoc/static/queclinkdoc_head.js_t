@@ -1,0 +1,14 @@
+$(document).ready(function() {
+    var scroll_top = document.documentElement.scrollTop;
+    var client_height = document.documentElement.clientHeight;
+    var scroll_height = document.documentElement.scrollHeight;
+
+    if (84 < document.documentElement.scrollTop) {
+        /* do nothing */
+    } else {
+        var prev = parseInt(sessionStorage.getItem("toc_is_fixed"));
+        if ((1 == prev) &&
+            (scroll_height > scroll_top + client_height))
+            document.documentElement.scrollTop = 84;
+    }
+});

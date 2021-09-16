@@ -1,0 +1,410 @@
+var toctree = document.getElementsByClassName("pageheader-toc")[0];
+var toctree_l1 = toctree.getElementsByClassName("toctree-l1");
+var offset_base = toctree.offsetLeft;
+
+var title_l1_width = [];
+var title_l2_width = [];
+var title_l3_width = [];
+var title_l3_max_width = [];
+var title_l1_extra_width = 2;       /* margin + border + padding */
+var title_l2l3_extra_width = 10;    /* border + padding */
+
+var title_bgc_default = "#008080";  /* green */
+var title_c_hover = "#222222"       /* black */
+
+/* copy from Internet, thanks to the original author */
+function getTextWidth(str) {
+    var w = $('body').append($('<span stlye="display:none;" id="textWidth"/>')).find('#textWidth').html(str).width();
+    $('#textWidth').remove();
+    return w;
+}
+
+function getMax(arr, len) {
+    var max = 0;
+    for (var i=0; i < len; i++) {
+        if (max < arr[i])
+            max = arr[i];
+    }
+    return max;
+}
+
+function title_l1_width_init() {
+    var l1_w_s = sessionStorage.getItem("title_l1_w"); /* 1,2,3,4,;0 */
+    var l1_w = l1_w_s.split(",");
+    for (var i=0; i < toctree_l1.length; i++) {
+        title_l1_width[i] = parseInt(l1_w[i]);
+    }
+}
+
+function fitTOCstyle_l2_l3() {
+    var l2_w, l3_ww, l3_l;
+    var l2_w_str = "", l3_w_str = "", l3_l_str = "";
+    var l2_w_s = sessionStorage.getItem("title_l2_w");  /* 1,2,3,4, */
+    var l3_w_s = sessionStorage.getItem("title_l3_w");  /* 1,2,3,4,;1,2,3,; */
+    var l3_l_s = sessionStorage.getItem("title_l3_l");  /* 0,0,0,1,   l:left*/
+    var has_item = (null != l2_w_s) ? true : false;
+
+    title_l1_width_init();
+
+    if (has_item) {
+        l2_w = l2_w_s.split(",");
+        l3_ww = l3_w_s.split(";");
+        l3_l = l3_l_s.split(",");
+    }
+
+    for (var i=0; i < toctree_l1.length; i++) {
+        var l3_left = false;
+        var toctree_l2 = toctree_l1[i].getElementsByClassName("toctree-l2");
+
+        if (!has_item) {
+            title_l2_width[i] = 0;
+            title_l3_max_width[i] = 0;
+            var has_l3 = false, diff, l2_width = [], l3_width = [];
+            var used_width = toctree_l1[i].offsetLeft - offset_base - 1;
+
+            /* current width */
+            for (var j=0; j < toctree_l2.length; j++) {
+                title_l3_width[j] = 0;
+                l2_width[j] = getTextWidth(toctree_l2[j].firstElementChild.innerText) + 4; /* 4 is compensation */
+                var toctree_l3 = toctree_l2[j].getElementsByClassName("toctree-l3");
+                for (var k=0; k < toctree_l3.length; k++) {
+                    var title = toctree_l3[k].firstElementChild.innerText;
+                    l3_width[k] = getTextWidth(title) + 4; /* 4 is compensation */
+                    has_l3 = true;
+                }
+                title_l3_width[j] = getMax(l3_width, toctree_l3.length);
+            }
+            title_l2_width[i] = getMax(l2_width, toctree_l2.length);
+            title_l3_max_width[i] = getMax(title_l3_width, toctree_l2.length);
+
+            /* fit l2 width */
+            if (title_l2_width[i] < title_l1_width[i] + title_l1_extra_width - title_l2l3_extra_width - 1)
+                title_l2_width[i] = title_l1_width[i] + title_l1_extra_width - title_l2l3_extra_width - 1;
+            diff = title_l2_width[i] + title_l2l3_extra_width - title_l1_width[i] - title_l1_extra_width;
+            if ((0 < diff) && (10 > diff))
+                title_l2_width[i] += (10 - diff);
+
+            if (!has_l3) {
+                /* don't over the body */
+                if (used_width + title_l2_width[i] + title_l2l3_extra_width > document.body.offsetWidth)
+                    title_l2_width[i] = document.body.offsetWidth - used_width - title_l2l3_extra_width;
+            } else {
+                if (used_width +
+                    title_l2_width[i] + title_l2l3_extra_width +
+                    title_l3_max_width[i] + title_l2l3_extra_width > document.body.offsetWidth) {
+                    if (title_l2_width[i] > title_l3_max_width[i]) {
+                        if (used_width +
+                            2*(title_l3_max_width[i] + title_l2l3_extra_width) <= document.body.offsetWidth) { /* shorten the long one */
+                            title_l2_width[i] = document.body.offsetWidth - used_width -
+                                                title_l3_max_width[i] - title_l2l3_extra_width - title_l2l3_extra_width;
+                        } else {
+                            var width = (document.body.offsetWidth - used_width)/2 - title_l2l3_extra_width;
+                            if (width >= 120) { /* take average */
+                                title_l2_width[i] = width;
+                                title_l3_max_width[i] = title_l2_width[i];
+                                for (var j=0; j < toctree_l2.length; j++) {
+                                    if (title_l3_width[j] > title_l3_max_width[i])
+                                        title_l3_width[j] = title_l3_max_width[i];
+                                }
+                            } else { /* turn l3 to left */
+                                l3_left = true;
+                                /* don't over the body */
+                                if (used_width + title_l2_width[i] + title_l2l3_extra_width > document.body.offsetWidth)
+                                    title_l2_width[i] = document.body.offsetWidth - used_width - title_l2l3_extra_width;
+                            }
+                        }
+                    } else {
+                        if (used_width +
+                            2*(title_l2_width[i] + title_l2l3_extra_width) <= document.body.offsetWidth) { /* shorten the long one */
+                            title_l3_max_width[i] = document.body.offsetWidth - used_width -
+                                                    title_l2_width[i] - title_l2l3_extra_width - title_l2l3_extra_width;
+                            for (var j=0; j < toctree_l2.length; j++) {
+                                if (title_l3_width[j] > title_l3_max_width[i])
+                                    title_l3_width[j] = title_l3_max_width[i];
+                            }
+                        } else { /* take average */
+                            var width = (document.body.offsetWidth - used_width)/2 - title_l2l3_extra_width;
+                            if (width >= 120) {
+                                title_l2_width[i] = width;
+                                title_l3_max_width[i] = title_l2_width[i];
+                                for (var j=0; j < toctree_l2.length; j++) {
+                                    if (title_l3_width[j] > title_l3_max_width[i])
+                                        title_l3_width[j] = title_l3_max_width[i];
+                                }
+                            } else { /* turn l3 to left */
+                                l3_left = true;
+                                /* don't over the body */
+                                if (used_width + title_l2_width[i] + title_l2l3_extra_width > document.body.offsetWidth)
+                                    title_l2_width[i] = document.body.offsetWidth - used_width - title_l2l3_extra_width;
+                            }
+                        }
+                    }
+                }
+            }
+
+            l2_w_str += title_l2_width[i].toString();
+            l2_w_str += ",";
+            l3_l_str += l3_left ? "1," : "0,";
+            for (var j=0; j < toctree_l2.length; j++) {
+                l3_w_str += title_l3_width[j].toString();
+                l3_w_str += ",";
+            }
+            l3_w_str += ";";
+        } else {
+            title_l2_width[i] = parseInt(l2_w[i]);
+            if ("1" == l3_l[i])
+                l3_left = true;
+            var l3_w = l3_ww[i].split(",");
+            for (var j=0; j < toctree_l2.length; j++) {
+                title_l3_width[j] = parseInt(l3_w[j]);
+            }
+        }
+
+        /* change style */
+        for (var j=0; j < toctree_l2.length; j++) {
+            toctree_l2[j].firstElementChild.style.width = title_l2_width[i].toString() + "px";
+            var toctree_l3 = toctree_l2[j].getElementsByClassName("toctree-l3");
+
+            for (var k=0; k < toctree_l3.length; k++) {
+                toctree_l3[k].firstElementChild.style.width = title_l3_width[j].toString() + "px";
+            }
+
+            if (0 < toctree_l3.length) {
+                var total_l2_width = title_l2_width[i] + title_l2l3_extra_width;
+                var toctree_l3_ul = toctree_l2[j].getElementsByTagName("ul")[0];
+                if (!l3_left) {
+                    toctree_l3_ul.style.left = (total_l2_width - 1).toString() + "px";
+                } else {
+                    var total_l3_width = title_l3_width[j] + title_l2l3_extra_width;
+                    toctree_l3_ul.style.left = "-" + (total_l3_width - 1).toString() + "px";
+                    for (var k=0; k < toctree_l3.length; k++) {
+                        toctree_l3[k].firstElementChild.style.textAlign = "right";
+                        toctree_l3[k].style.borderRight = "1px solid white";
+                    }
+                }
+            }
+        }
+    }
+
+    if (!has_item) {
+        sessionStorage.setItem("title_l2_w", l2_w_str);
+        sessionStorage.setItem("title_l3_w", l3_w_str);
+        sessionStorage.setItem("title_l3_l", l3_l_str);
+    }
+}
+
+function fitTOCstyle_current() {
+    var current_l1 = toctree.getElementsByClassName("toctree-l1 current");
+    if (0 < current_l1.length) {
+        current_l1[0].firstElementChild.style.backgroundColor = "white";
+        current_l1[0].firstElementChild.style.color = title_c_hover;
+    }
+}
+
+$(".pageheader-toc .toctree-l1").mouseover(function() {
+    this.firstElementChild.style.backgroundColor = "white";
+    this.firstElementChild.style.color = title_c_hover;
+});
+
+$(".pageheader-toc .toctree-l2").mouseover(function() {
+    this.firstElementChild.style.backgroundColor = "white";
+    this.firstElementChild.style.color = title_c_hover;
+    this.parentElement.parentElement.firstElementChild.style.backgroundColor = "white";
+    this.parentElement.parentElement.firstElementChild.style.color = title_c_hover;
+    var l3_ul = this.getElementsByTagName("ul");
+    if (0 < l3_ul.length) {
+        if (parseInt(l3_ul[0].style.left) <= -10) {
+            this.firstElementChild.style.paddingLeft = "2px";
+            this.firstElementChild.style.borderLeftWidth = "4px";
+            this.firstElementChild.style.borderLeftStyle = "solid";
+            this.firstElementChild.style.borderLeftColor = title_bgc_default;
+        }
+    }
+});
+
+$(".pageheader-toc .toctree-l3").mouseover(function() {
+    this.firstElementChild.style.backgroundColor = "white";
+    this.firstElementChild.style.color = title_c_hover;
+    this.parentElement.parentElement.firstElementChild.style.backgroundColor = "white";
+    this.parentElement.parentElement.firstElementChild.style.color = title_c_hover;
+    this.parentElement.parentElement.firstElementChild.style.borderLeftColor = title_bgc_default;
+    this.parentElement.parentElement.firstElementChild.style.borderLeftStyle = "solid";
+    this.parentElement.parentElement.firstElementChild.style.borderLeftWidth = "3px";
+    this.parentElement.parentElement.firstElementChild.style.paddingLeft = "3px";
+    this.parentElement.parentElement.parentElement.parentElement.firstElementChild.style.backgroundColor = "white";
+    this.parentElement.parentElement.parentElement.parentElement.firstElementChild.style.color = title_c_hover;
+});
+
+$(".pageheader-toc .toctree-l1, .pageheader-toc .toctree-l2, .pageheader-toc .toctree-l3").mouseout(function() {
+    this.firstElementChild.style.backgroundColor = title_bgc_default;
+    this.firstElementChild.style.color = "white";
+    fitTOCstyle_current();
+});
+
+class AnchorClick {
+    constructor(element, changed, last_padding, last_margin, anchor0) {
+        this.element = element;
+        this.changed = changed;
+        this.last_padding = last_padding;
+        this.last_margin = last_margin;
+        this.anchor0 = anchor0;
+    }
+}
+
+var aClick = new AnchorClick(document, false, 0, 0, false);
+
+function aClick_reset() {
+    if (aClick.changed) {
+        aClick.element.style.paddingTop = aClick.last_padding.toString() + "px";
+        aClick.element.style.marginTop = aClick.last_margin.toString() + "px";
+        aClick.changed = false;
+        aClick.anchor0 = false;
+    }
+}
+
+var toc_is_fixed = false;
+
+function toc_is_fixed_setItem() {
+    if ((!toc_is_fixed) &&
+        (84 > document.documentElement.scrollTop))
+        sessionStorage.setItem("toc_is_fixed", "0");
+    else
+        sessionStorage.setItem("toc_is_fixed", "1");
+}
+
+window.onscroll = function() {
+    if (aClick.anchor0) {
+        document.documentElement.scrollTop = 84;
+        aClick.anchor0 = false;
+    }
+
+    if (!toc_is_fixed) {
+        if (84 < document.documentElement.scrollTop) {
+            var toctree = document.getElementsByClassName("pageheader-toc")[0];
+            var related = document.getElementsByClassName("related")[0];
+            toctree.style.position = "fixed";
+            toctree.style.zIndex = 99;
+            toctree.style.top = 0;
+            related.style.width = "960px";
+            related.style.position = "fixed";
+            related.style.zIndex = 98;
+            related.style.top = "28px";
+            toc_is_fixed = true;
+
+            /* add hr */
+            var hr = document.createElement("hr");
+            hr.setAttribute('class', 'extra-hr');
+            hr.setAttribute('style', 'border:0; border-top:57px solid white;');
+            related.parentElement.insertBefore(hr, related.nextElementSibling);
+        }
+    } else {
+        if (84 >= document.documentElement.scrollTop) {
+            var toctree = document.getElementsByClassName("pageheader-toc")[0];
+            var related = document.getElementsByClassName("related")[0];
+            toctree.style.position = "static";
+            related.style.position = "static";
+            toc_is_fixed = false;
+
+            /* delete hr */
+            var hr = document.getElementsByClassName("extra-hr")[0];
+            hr.remove();
+        }
+    }
+
+    aClick_reset();
+}
+
+function getClassA(e) {
+    if ("A" == e.target.tagName)
+        return e.target;
+    if ("A" == e.target.parentElement.tagName)
+        return e.target.parentElement;
+    if ("A" == e.target.parentElement.parentElement.tagName)
+        return e.target.parentElement.parentElement;
+    if ("A" == e.target.children[0].tagName)
+        return e.target.children[0];
+    return null;
+}
+
+var marginTop2positive = false;	/* false: just keep code */
+
+$(".pageheader-toc, .related, #pageheader-Contents, #pageheader-Previous, #pageheader-Next").click(function(e) {
+    var tar = getClassA(e);
+    if (null == tar)
+        return;
+    if (("reference internal" != tar.className) &&
+        ("current reference internal" != tar.className) &&
+        ("related" != tar.parentElement.parentElement.parentElement.className) &&
+        ("pageheader-search" != tar.parentElement.parentElement.className))
+        return;
+    if (window.location.pathname == tar.pathname) { /* current page */
+        aClick_reset();
+        aClick.last_margin = 0;
+        aClick.last_padding = 0;
+        var anchor = tar.hash;
+        var headerlink = document.getElementsByClassName("body")[0].getElementsByClassName("headerlink");
+        if (0 < anchor.length) { /* #xx */
+            if (marginTop2positive) {
+                for (var i=0; i < headerlink.length; i++) {
+                    if (anchor == headerlink[i].getAttribute("href")) {
+                        var m_str = window.getComputedStyle(headerlink[i].parentElement).getPropertyValue("margin-top");
+                        var p_str = window.getComputedStyle(headerlink[i].parentElement).getPropertyValue("padding-top");
+                        if ("" != m_str)
+                            aClick.last_margin = parseInt(m_str);
+                        if ("" != p_str)
+                            aClick.last_padding = parseInt(p_str);
+                        headerlink[i].parentElement.style.paddingTop = "65px"; /* 28 + 29 + 8 */
+                        headerlink[i].parentElement.style.marginTop = "-49px"; /* 28 + 29 - 8 */
+                        aClick.element = headerlink[i].parentElement;
+                        aClick.changed = true;
+                        break;
+                    }
+                }
+            }
+        } else { /* # */
+            if (toc_is_fixed)
+                aClick.anchor0 = true;
+
+            /* # may trigger onload */
+            toc_is_fixed_setItem();
+        }
+    } else { /* other page */
+        toc_is_fixed_setItem();
+    }
+});
+
+var h2h3h4_revised = false;
+var scroll_behavior_auto = false;
+
+setTimeout("revise_style()", 1500);
+function revise_style() {
+    if (marginTop2positive) {
+        if (!h2h3h4_revised) {
+            var tar = null;
+            var anchor = window.location.hash;
+            if (0 < anchor.length) {
+                var headerlink = document.getElementsByClassName("body")[0].getElementsByClassName("headerlink");
+                for (var i=0; i < headerlink.length; i++) {
+                    if ((anchor == headerlink[i].getAttribute("href")) &&
+                        (("H2" == headerlink[i].parentElement.tagName) ||
+                         ("H3" == headerlink[i].parentElement.tagName) ||
+                         ("H4" == headerlink[i].parentElement.tagName))) {
+                        tar = headerlink[i].parentElement;
+                        break;
+                    }
+                }
+            }
+            $("h2, h3, h4").css({"margin-top":"16px", "padding-top":"0px"});
+            if (null != tar) {
+                tar.style.paddingTop = "65px"; /* 28 + 29 + 8 */
+                tar.style.marginTop = "-49px"; /* 28 + 29 - 8 */
+            }
+            h2h3h4_revised = true;
+        }
+    }
+
+    if (!scroll_behavior_auto) {
+        document.getElementsByTagName("html")[0].style.scrollBehavior = "auto";
+        scroll_behavior_auto = true;
+    }
+}
