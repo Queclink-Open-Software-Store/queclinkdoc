@@ -528,6 +528,16 @@ code, tt {
     background-color: {{ local_bgc_code }};
 }
 
+tbody p tt,
+tbody p code {
+    border: none;
+}
+
+tbody div tt,
+tbody div code {
+    border: none;
+}
+
 tt.descname, tt.descclassname, tt.xref {
     border: 0;
 }
@@ -582,6 +592,15 @@ div.viewcode-block:target {
 
 dt:target, span.highlighted {
     background-color: {{ highlight_color }};
+}
+
+blockquote {
+    margin: 6px 0 6px 30px;
+    padding: 0;
+}
+
+div[class*="highlight-"] {
+    margin: 0.8em 0;
 }
 
 /* -- Admonitions styles ----------------------------------------------------------- */
@@ -640,24 +659,44 @@ p.admonition-title {
 /* -- table layout ------------------------------------------------------------- */
 
 table.docutils {
-    margin-top: 8px;
-    margin-bottom: 8px;
+    margin-top: 0.8em;
+    margin-bottom: 0.8em;
     border: 1px solid {{ border_c_gray }};
     border-collapse: collapse;
+    font-size: 0.95em;
 }
 
 table.docutils td, table.docutils th {
     border: 1px solid {{ border_c_gray }};
-    padding: 0.25em 0.5em;
+    padding: 0.3em 0.5em;
 }
 
-th > :first-child,
-td > :first-child {
+thead {
+    background-color: {{ local_c_gray }};
+    white-space: nowrap;
+}
+
+table.docutils p,
+table.docutils div {
+    margin: 0.25em 0;
+}
+
+table.docutils th .line-block .line,
+table.docutils td .line-block .line {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+    line-height: 1.25em;
+}
+
+table.docutils th .line-block .line em {
+    font-weight: normal;
+}
+
+th > :first-child, td > :first-child {
     margin-top: 0px !important;
 }
 
-th > :last-child,
-td > :last-child {
+th > :last-child, td > :last-child {
     margin-bottom: 0px !important;
 }
 

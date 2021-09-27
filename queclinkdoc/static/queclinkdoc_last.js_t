@@ -294,7 +294,7 @@ window.onscroll = function() {
             /* add hr */
             var hr = document.createElement("hr");
             hr.setAttribute('class', 'extra-hr');
-            hr.setAttribute('style', 'border:0; border-top:57px solid white;');
+            hr.setAttribute('style', 'margin:0; border:0; border-top:57px solid white;');
             related.parentElement.insertBefore(hr, related.nextElementSibling);
         }
     } else {

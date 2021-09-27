@@ -5,6 +5,8 @@ Queclinkdoc is a simple, clean, and less-configured theme for the `Sphinx <https
 
 We show the global **TOC** tree of the documentation in a drop-down list at the head of the page, and even if you browse to the end of the page, this TOC tree will still be fixed at the head, so you can jump to other pages at any time.
 
+We recommend using Google Chrome to read the generated documentation. 
+
 You can make and install **queclinkdoc** theme like this:
 
 .. code-block:: Python
@@ -16,4 +18,4 @@ Here is a snapshot.
 
 .. figure:: snapshot.bmp
 
-If you have any questions or suggestions, please contact `Hubert.Lee@queclink.com`, thanks in advance.
+If you have any questions or suggestions, please contact us, thanks in advance.
