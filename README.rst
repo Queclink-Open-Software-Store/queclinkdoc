@@ -14,8 +14,23 @@ You can make and install **queclinkdoc** theme like this:
    py setup.py sdist
    py -m pip install dist\queclinkdoc-x.x.tar.gz
 
-Here is a snapshot.
+And this theme supports the following custom HTML options:
+
+- zoomout_asize
+
+  Can be *true* or *false*, default is *true*. The font size of the <a> tag whose first character is a capital letter will be reduced to 0.95em when it is true, and will not be reduced when it is false.
+
+It can be true or false. The default is true. When true, the font-size of the <a> tag whose first character is a capital letter will be reduced to 0.95em, and when it is false, it will not be reduced. You can change it to false like this:
+
+.. code-block::
+
+   html_theme_options = {
+     'zoomout_asize': 'false',
+   }
+
+Here is a snapshot of the **queclinkdoc** theme.
 
 .. figure:: snapshot.bmp
+
 
 If you have any questions or suggestions, please contact us, thanks in advance.

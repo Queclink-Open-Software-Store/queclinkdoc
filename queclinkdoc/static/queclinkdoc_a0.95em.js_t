@@ -1,0 +1,13 @@
+function fitA095em() {
+    if ({{theme_zoomout_asize}}) {
+        var pa = $("div.body p a");
+        for (var i=0; i < pa.length; i++) {
+            if (('reference external' == pa[i].className) ||
+                ('reference internal' == pa[i].className)) {
+                c = pa[i].innerText[0];
+                if (('A' <= c) && ('Z' >= c))
+                    pa[i].style.fontSize = "0.95em";
+            }
+        }
+    }
+}
