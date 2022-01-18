@@ -603,6 +603,15 @@ div[class*="highlight-"] {
     margin: 0.8em 0;
 }
 
+a.footnote-reference {
+    font-size: 0.7em;
+    vertical-align: top;
+}
+
+a.fn-backref {
+    font-size: 0.7em;
+}
+
 /* -- Admonitions styles ----------------------------------------------------------- */
 
 div.admonition {

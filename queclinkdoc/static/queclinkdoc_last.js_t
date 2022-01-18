@@ -99,7 +99,7 @@ function fitTOCstyle_l2_l3() {
                                                 title_l3_max_width[i] - title_l2l3_extra_width - title_l2l3_extra_width;
                         } else {
                             var width = (document.body.offsetWidth - used_width)/2 - title_l2l3_extra_width;
-                            if (width >= 120) { /* take average */
+                            if (width >= 160) { /* take average */
                                 title_l2_width[i] = width;
                                 title_l3_max_width[i] = title_l2_width[i];
                                 for (var j=0; j < toctree_l2.length; j++) {
@@ -124,7 +124,7 @@ function fitTOCstyle_l2_l3() {
                             }
                         } else { /* take average */
                             var width = (document.body.offsetWidth - used_width)/2 - title_l2l3_extra_width;
-                            if (width >= 120) {
+                            if (width >= 160) {
                                 title_l2_width[i] = width;
                                 title_l3_max_width[i] = title_l2_width[i];
                                 for (var j=0; j < toctree_l2.length; j++) {
