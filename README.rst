@@ -17,12 +17,12 @@ You can make and install **queclinkdoc** theme like this:
 When using the `ref <https://www.sphinx-doc.org/en/master/usage/restructuredtext/roles.html#ref-role>`_ directive to jump to the top of the page, for a good experience, please name the label at the top of the page with **headlabel-** as a prefix, for example:
 
 .. code-block::
-   :linenos:
 
-   .. _headlabel-page-title:
-
-   Page Title
-   ===========
+   1 .. _headlabel-page-title:
+   2
+   3 Page Title
+   4 ===========
+   5
 
 In addition, this theme supports the following custom HTML options:
 
@@ -36,6 +36,6 @@ In addition, this theme supports the following custom HTML options:
        'zoomout_asize': 'false',
      }
 
-`Here <snapshot.png>`_ is a snapshot of the **queclinkdoc** theme.
+`snapshot.png <snapshot.png>`_ is a snapshot of the **queclinkdoc** theme.
 
 If you have any questions or suggestions, please contact us, thanks in advance.
