@@ -326,9 +326,9 @@ function getClassA(e) {
     return null;
 }
 
-var marginTop2positive = false;	/* false: just keep code */
+var marginTop2positive = false; /* false: just keep code */
 
-$(".pageheader-toc, .related, #pageheader-Contents, #pageheader-Previous, #pageheader-Next").click(function(e) {
+$("a.reference.internal, .pageheader-toc, .related, #pageheader-Contents, #pageheader-Previous, #pageheader-Next").click(function(e) {
     var tar = getClassA(e);
     if (null == tar)
         return;
@@ -338,6 +338,16 @@ $(".pageheader-toc, .related, #pageheader-Contents, #pageheader-Previous, #pageh
         ("pageheader-search" != tar.parentElement.parentElement.className))
         return;
     if (window.location.pathname == tar.pathname) { /* current page */
+        if (("P" == tar.parentElement.tagName) &&
+            ("" == tar.parentElement.className) &&
+            ("" == tar.parentElement.id)) { /* jump between paragraphs */
+            var ahref = tar.getAttribute("href");
+            if (("" != ahref) && (null != ahref)) {
+                if (-1 != ahref.indexOf("#headlabel-"))
+                    tar.setAttribute("href", "#");
+            }
+            return;
+        }
         aClick_reset();
         aClick.last_margin = 0;
         aClick.last_padding = 0;
@@ -370,6 +380,13 @@ $(".pageheader-toc, .related, #pageheader-Contents, #pageheader-Previous, #pageh
         }
     } else { /* other page */
         toc_is_fixed_setItem();
+
+        var ahref = tar.getAttribute("href");
+        if (("" != ahref) && (null != ahref)) {
+            var idx = ahref.indexOf(".html#headlabel-");
+            if (-1 != idx)
+                tar.setAttribute("href", ahref.substring(0, idx+5));
+        }
     }
 });
 

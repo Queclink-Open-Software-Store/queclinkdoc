@@ -14,7 +14,17 @@ You can make and install **queclinkdoc** theme like this:
    py setup.py sdist
    py -m pip install dist\queclinkdoc-x.x.tar.gz
 
-And this theme supports the following custom HTML options:
+When using the `ref <https://www.sphinx-doc.org/en/master/usage/restructuredtext/roles.html#ref-role>`_ directive to jump to the top of the page, for a good experience, please name the label at the top of the page with "headlabel-" as a prefix, for example:
+
+.. code-block:
+   :linenos:
+
+   .. _headlabel-page-title:
+
+   Page Title
+   ===========
+
+In addition, this theme supports the following custom HTML options:
 
 - zoomout_asize
 
