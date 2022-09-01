@@ -10,6 +10,7 @@
 {%- block scripts %}
     {{ super() }}
     <script src="{{ pathto('_static/queclinkdoc_head.js', 1) }}"></script>
+    <script>var toc_background_color_user = "{{ theme_toc_background_color }}";</script>
 {%- endblock %}
 
 {%- set fulltoc = toctree(includehidden=False, collapse=False, maxdepth=theme_globaltoc_maxdepth) %}

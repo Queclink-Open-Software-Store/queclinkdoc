@@ -5,7 +5,7 @@ Queclinkdoc is a simple, clean, and less-configured theme for the `Sphinx <https
 
 We show the global **TOC** tree of the documentation in a drop-down list at the head of the page, and even if you browse to the end of the page, this TOC tree will still be fixed at the head, so you can jump to other pages at any time.
 
-We recommend using *Google Chrome* or *Firefox* to read the generated documentation. 
+We recommend using *Google Chrome* or *Firefox* to read the generated documentation.
 
 You can make and install **queclinkdoc** theme like this:
 
@@ -25,6 +25,16 @@ When using the `ref <https://www.sphinx-doc.org/en/master/usage/restructuredtext
    5
 
 In addition, this theme supports the following custom HTML options:
+
+- toc_background_color
+
+  Used to specify the background color of the title area at the head of the page, the default is Blue (#2B579A), for example, you can change it to Green like this:
+
+  .. code-block::
+
+     html_theme_options = {
+       'toc_background_color': '#008080',
+     }
 
 - zoomout_asize
 

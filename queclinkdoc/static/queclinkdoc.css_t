@@ -12,9 +12,10 @@
 
 {%- set _window_width = "960px" %}
 
+{%- set toc_bgc_user = theme_toc_background_color %}
+
 {%- set local_c_gray = "#F3F1EA" %}
 {%- set local_c_blue = "#2A579A" %}
-{%- set local_c_green = "#008080" %}
 {%- set local_c_black = "#222222" %}
 {%- set local_c_orange = "#FF6300" %}
 {%- set local_c_red = "#F10000" %}
@@ -24,10 +25,10 @@
 
 {%- set highlight_color = "#FBE54E" %}
 
-{%- set local_bgc_code = "#F8F8F8" %}
+{%- set local_bgc_code = "#F2F2F2" %}
 
-{%- set local_title_font = "Gill Sans MT" %}
-{%- set local_basic_font = "Arial, sans-serif, Verdana, Consolas, Microsoft YaHei" %}
+{%- set local_title_font = "Gill Sans MT, Georgia, serif, 宋体" %}
+{%- set local_basic_font = "Georgia, serif, Arial, 宋体, Microsoft YaHei" %}
 {%- set local_code_font = "Consolas, Menlo, DejaVu Sans Mono, Bitstream Vera Sans Mono, monospace" %}
 
 @import url("basic.css");
@@ -164,7 +165,7 @@ ul.search li p.context {
 .pageheader-title {
     clear: both;
     font-weight: 520;
-    background-color: {{ local_c_green }};
+    background-color: {{ toc_bgc_user }};
     color: white;
     height: 44px;
     padding: 2px;
@@ -196,8 +197,9 @@ ul.search li p.context {
     border: 0;
     padding: 0;
     margin: 0 auto;
+    font-size: 0.95em;
     font-weight: normal;
-    background-color: {{ local_c_green }};
+    background-color: {{ toc_bgc_user }};
     color: white;
 }
 
@@ -221,12 +223,12 @@ ul.search li p.context {
 .pageheader-toc ul li {
     float: left;
     line-height: 28px;
-    border-left: 1px solid {{ local_c_green }};
-    border-right: 1px solid {{ local_c_green }};
+    border-left: 1px solid {{ toc_bgc_user }};
+    border-right: 1px solid {{ toc_bgc_user }};
 }
 
 .pageheader-toc a {
-    background-color: {{ local_c_green }};
+    background-color: {{ toc_bgc_user }};
     color: white;
     height: 28px;
     display: block;
@@ -240,7 +242,7 @@ ul.search li p.context {
 }
 
 .pageheader-toc .toctree-l1 > a {
-    color: {{ local_c_green }};
+    color: {{ toc_bgc_user }};
 }
 
 .pageheader-toc .toctree-l2 a {
@@ -294,7 +296,7 @@ ul.search li p.context {
 
 .pageheader-toc .toctree-l2 a:hover,
 .pageheader-toc .toctree-l3 a:hover {
-    border-left: 3px solid {{ local_c_green }};
+    border-left: 3px solid {{ toc_bgc_user }};
     padding-left: 3px;
 }
 
@@ -419,13 +421,6 @@ div.footer a {
 
 div.body p, div.body dd, div.body li {
     line-height: 1.5em;
-    letter-spacing: 0.01em;
-    word-spacing: 0.05em;
-}
-
-div.body p a {
-    letter-spacing: -0.01em;
-    word-spacing: -0.025em;
 }
 
 div.body b,
@@ -467,7 +462,7 @@ div.document ul ul ul ul ul ul {
 
 div.document h1, div.document h2, div.document h3,
 div.document h4, div.document h5, div.document h6 {
-    font-family: {{ local_title_font }}, {{ local_basic_font }};
+    font-family: {{ local_basic_font }};
 }
 
 div.document h1 b, div.document h2 b, div.document h3 b,
@@ -511,20 +506,19 @@ a.headerlink {
     display: none;
 }
 
-cite, code, tt {
-    font-family: {{ local_code_font }};
-    font-size: 0.95em;
-    font-weight: 600;
+cite {
+    font-family: {{ local_basic_font }};
     font-style: italic;
-    letter-spacing: -0.01em;
-    word-spacing: -0.025em;
 }
 
 code, tt {
+    font-family: {{ local_code_font }};
+}
+
+code, tt {
+    border: none;
     padding-left: 2px;
     padding-right: 2px;
-    border-radius: 1px;
-    border: 1px solid #ddd;
     background-color: {{ local_bgc_code }};
 }
 
@@ -564,7 +558,6 @@ div.document pre {
     font-family: {{ local_code_font }};
     font-size: 14px;
     line-height: 1.4em;
-    letter-spacing: 0.01em;
     padding: 8px 16px;
     border-radius: 1px;
     border: 1px solid {{ border_c_gray2 }};
@@ -574,8 +567,6 @@ div.document pre {
 div.document pre a {
     color: inherit;
     text-decoration: underline;
-    letter-spacing: -0.01em;
-    word-spacing: -0.025em;
 }
 
 td.linenos pre {
@@ -639,7 +630,7 @@ div.admonition > p.admonition-title {
     line-height: 22px;
     color: {{ local_c_blue }};
     text-shadow: 1px 1px 1px #ff9a00;
-    font-family: {{ local_title_font }}, {{ local_basic_font }};
+    font-family: {{ local_basic_font }};
 }
 
 p.admonition-title:after {

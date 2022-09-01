@@ -9,8 +9,8 @@ var title_l3_max_width = [];
 var title_l1_extra_width = 2;       /* margin + border + padding */
 var title_l2l3_extra_width = 10;    /* border + padding */
 
-var title_bgc_default = "#008080";  /* green */
-var title_c_hover = "#222222"       /* black */
+/* var toc_background_color_user = "#008080"; */ /* green */
+var title_c_hover = "#222222"   /* black */
 
 /* copy from Internet, thanks to the original author */
 function getTextWidth(str) {
@@ -217,7 +217,7 @@ $(".pageheader-toc .toctree-l2").mouseover(function() {
             this.firstElementChild.style.paddingLeft = "2px";
             this.firstElementChild.style.borderLeftWidth = "4px";
             this.firstElementChild.style.borderLeftStyle = "solid";
-            this.firstElementChild.style.borderLeftColor = title_bgc_default;
+            this.firstElementChild.style.borderLeftColor = toc_background_color_user;
         }
     }
 });
@@ -227,7 +227,7 @@ $(".pageheader-toc .toctree-l3").mouseover(function() {
     this.firstElementChild.style.color = title_c_hover;
     this.parentElement.parentElement.firstElementChild.style.backgroundColor = "white";
     this.parentElement.parentElement.firstElementChild.style.color = title_c_hover;
-    this.parentElement.parentElement.firstElementChild.style.borderLeftColor = title_bgc_default;
+    this.parentElement.parentElement.firstElementChild.style.borderLeftColor = toc_background_color_user;
     this.parentElement.parentElement.firstElementChild.style.borderLeftStyle = "solid";
     this.parentElement.parentElement.firstElementChild.style.borderLeftWidth = "3px";
     this.parentElement.parentElement.firstElementChild.style.paddingLeft = "3px";
@@ -236,7 +236,7 @@ $(".pageheader-toc .toctree-l3").mouseover(function() {
 });
 
 $(".pageheader-toc .toctree-l1, .pageheader-toc .toctree-l2, .pageheader-toc .toctree-l3").mouseout(function() {
-    this.firstElementChild.style.backgroundColor = title_bgc_default;
+    this.firstElementChild.style.backgroundColor = toc_background_color_user;
     this.firstElementChild.style.color = "white";
     fitTOCstyle_current();
 });

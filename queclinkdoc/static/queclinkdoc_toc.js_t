@@ -4,8 +4,8 @@ var toctree_l1 = toctree.getElementsByClassName("toctree-l1");
 var title_l1_width = [];
 var title_l1_extra_width = 2;       /* margin + border + padding */
 
-var title_bgc_default = "#008080";  /* green */
-var title_c_hover = "#222222"       /* black */
+/* var toc_background_color_user = "#008080"; */ /* green */
+var title_c_hover = "#222222"   /* black */
 
 /* copy from Internet, thanks to the original author */
 function getTextWidth(str) {
