@@ -49,7 +49,7 @@ function fitTOCstyle_l1() {
 
         for (var i=0; i < toctree_l1.length; i++) {
             toctree_l1[i].firstElementChild.style.width = title_l1_width[i].toString() + "px";
-            toctree_l1[i].firstElementChild.style.color = "white";
+            toctree_l1[i].firstElementChild.style.color = "#F3F1EA";
         }
 
         var str = "";
@@ -67,7 +67,7 @@ function fitTOCstyle_l1() {
             toctree_l1[0].style.marginLeft = offset[1] + "px";
         for (var i=0; i < toctree_l1.length; i++) {
             toctree_l1[i].firstElementChild.style.width = l1_w[i] + "px";
-            toctree_l1[i].firstElementChild.style.color = "white";
+            toctree_l1[i].firstElementChild.style.color = "#F3F1EA";
         }
     }
 }

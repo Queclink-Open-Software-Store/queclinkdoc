@@ -166,7 +166,7 @@ ul.search li p.context {
     clear: both;
     font-weight: 520;
     background-color: {{ toc_bgc_user }};
-    color: white;
+    color: #fcfcfc;
     height: 44px;
     padding: 2px;
     margin: 0;
@@ -200,7 +200,7 @@ ul.search li p.context {
     font-size: 0.95em;
     font-weight: normal;
     background-color: {{ toc_bgc_user }};
-    color: white;
+    color: {{ local_c_gray }};
 }
 
 .pageheader-toc b,
@@ -229,7 +229,7 @@ ul.search li p.context {
 
 .pageheader-toc a {
     background-color: {{ toc_bgc_user }};
-    color: white;
+    color: {{ local_c_gray }};
     height: 28px;
     display: block;
     overflow: hidden;
@@ -258,9 +258,9 @@ ul.search li p.context {
 }
 
 .pageheader-toc .toctree-l1 ul li {
-    border-left: 1px solid white;
+    border-left: 1px solid {{ local_c_gray }};
     border-right-width: 0px;
-    border-top: 1px solid white;
+    border-top: 1px solid {{ local_c_gray }};
     border-bottom-width: 0;
 }
 
@@ -290,7 +290,7 @@ ul.search li p.context {
 }
 
 .pageheader-toc .toctree-l1 a:hover {
-    background-color: white;
+    background-color: {{ local_c_gray }};
     color: {{ local_c_black }};
 }
 
